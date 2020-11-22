@@ -142,127 +142,6 @@ def stastic_value_of_numbers_in_loop(numbers):
 
 
 
-#随机数范围是【1，10000】，产生一百亿个随机数，求里面最大值，次大值，次小值，最小值。
-
-import random
-
-
-def stastic_value_of_numbers():
-    max_ = max_second = min_second = min_ = random.randint(1,10000)
-
-    
-    for _ in range(10**10):
-        
-        
-        number = random.randint(1,10000)    
-        if number > max_:
-            max_second = max_
-            max_ = number
-
-        elif number > max_second:
-            max_second = number
-                
-            
-        elif max_ == max_second:
-            max_second = number
-                
-        if number < min_:
-            min_second = min_
-            min_ = number
-
-        elif number < min_second:
-            min_second = number
-                
-            
-        elif min_ == min_second:
-            min_second = number
-
-        
-        
-
-    return max_,max_second,min_second,min_
-
-"""
-if __name__ == "__main__":
-    print("{}".format(stastic_value_of_numbers()))
-"""
-
-
-
-#实现动态哈希算法
-"""
-data_machines = ["192.168.1","192.168.2", "192.168.3"]
-
-nodes = []
-for machine in data_machines:
-    nodes.append((hash(machine), {"ip_address": machine}))
-
-print(nodes)
-
-for i in (len(nodes)-1):
-    exchange = False
-    for j in (len(nodes)-1-i):
-        if nodes[j][0] > nodes[j+1][0]:
-            nodes[j][0],nodes[j+1][0] = nodes[j+1][0],nodes[j][0]
-            exchange = True
-    if not exchange:
-        break
-print(nodes)
-
-for data_machine in data_machines:
-    hash_value = hash(data_machine)
-    if hash_value == nodes[][]
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #求100以内的所有素数
 
 
@@ -282,11 +161,177 @@ def is_prime_number():
         if is_prime:            
             print("{}".format(number),end = " ")
 
+
+
+"""计算所有自恋数的和"""
+
+def sum_of_shuixianhua():
+    sum_of_numbers = 0
+    for number in range(100,1000):
+        sum_ = 0
+        weight = 100
+        current = number
+        while current >=1:
+            figure = current // weight
+            sum_ += figure ** 3
+            current %= weight
+            weight //= 10
+        if sum_ == number:
+            sum_of_numbers += number
+    print(sum_of_numbers)
+
+""" 在循环中求20个随机数的次大合数"""
+
+import random
+
+
+def max_second_composite_number():
+    numbers = [random.randint(2,100) for _ in range(20)]
+    numbers.sort()
+    print(numbers)
+    max_ = max_second_composite = None
+    for number in numbers:
+        for i in range(2,number):
+            if number % i == 0:
+                print(number,end = " ")
+                if max_ == None:   # 这里相当于初始化max_和max_second_composite的值，这行代码在运行时只会执行一次。
+                    max_ = max_second_composite = number
+                elif number > max_: # 如果number比我们上轮循环计算出的最大值要大，那么我们就更新次大质数的值。
+                    max_second_composite = max_
+                    max_ = number
+                elif max_ == max_second_composite:   # 因为是随机数，所以合数max_和max_second_composite有可能相等，所以还要再判断这种情况。
+                    max_second_composite = number
+                break               # 更新完之后就break掉内循环，直接进入下轮外循环遍历下一个number
+    print()
+    return max_second_composite
+
+""" 在循环中求20个随机数的次大质数"""
+
+import random
+
+def max_second_prime():
+    numbers = [random.randint(2,100) for _ in range(20)]
+    numbers.sort()
+    print(numbers)
+    sum_of_numbers = 0
+    max_ = max_second_prime = None
+    for number in numbers:
+        for i in range(2,number):
+            if number % 2 == 0:
+                break
+        else:
+            print(number,end = " ")
+            if max_ == None:
+                max_ = max_second_prime = number
+            elif number > max_:
+                max_second_prime = max_
+                max_ = number
+            elif max_ == max_second_composite:  # 因为是随机数，所以合数max_和max_second_composite有可能相等，所以还要再判断这种情况。
+                max_second_composite = number
+    print()
+    return max_second_prime
+
+
+"""使用三元运算符求四个变量的最大值"""
+def calculate_extreme(a,b,c,d):
+    max_ = a if a > b else b
+    max_ = c if c > max_ else max_
+    max_ = d if d > max_ else max_
+    return max_
+
+
+"""20个随机数，求其中的第四大值（不能将列表整体排序。）
+思路：用for循环求四个变量的最小值，然后从第五个元素开始遍历。
 """
-if __name__=="__main__":
-    is_prime_number()
-     
-"""
+import random
+
+numbers = [random.randint(1,1000) for _ in range(20)]
+
+max_n4 = numbers[0]
+max_n4_index = 0
+
+for i in range(4):
+    if numbers[i] < max_n4:
+        max_n4 = numbers[i]
+        max_n4_index = i
+
+for number in numbers[5:]:
+    # 这里不需要再重新判断number是否小于max_n4，因为小于时候不违背前提假设
+   if number > max_n4:
+       # 如果number大于第四大值，就更新第四大值，然后重新计算第四大值
+       numbers[max_n4_index] = number
+
+       # 进入循环之前更新第四大值的假设值和其位置索引
+       max_n4 = numbers[0]
+       max_n4_index = 0
+       for i in range(4):
+           if numbers[i] < max_n4:
+               max_n4 = numbers[i]
+               max_n4_index = i
+
+# 求20个随机数中的次大值？(思想：使用先遍历2个元素，再遍历剩下的元素的方法写一遍。）
+import random
+numbers = [random.randint(1,100) for _ in range(20)]
+numbers.sort()
+print(numbers)
+max_sec = numbers[0]
+max_sec_index = 0
+for index in range(2):
+    if numbers[index] < max_sec:
+        max_sec = numbers[index]
+        max_sec_index = index
+
+for number in numbers[2:]:
+    if number > max_sec:
+        numbers[max_sec_index] = number
+        max_sec = numbers[0]
+        max_sec_index = 0
+        for index in range(2):
+            if numbers[index] < max_sec:
+                max_sec = numbers[index]
+                max_sec_index = index
+print(max_sec)
+
+
+
+"""在循环中计算1到100中次大偶数和次大奇数的和"""
+def cal_sum_of_max_second():
+    max_even_number = max_sec_even_number = 2
+    max_odd_number = max_sec_odd_number = 1
+    for number in range(1,101):
+        if number % 2 == 0:
+            if number > max_even_number:
+                max_sec_even_number = max_even_number
+                max_even_number = number
+            elif number > max_sec_even_number:
+                max_sec_even_number = number
+        else:
+            if number > max_odd_number:
+                max_sec_odd_number = max_odd_number
+                max_odd_number = number
+            elif number > max_sec_odd_number:
+                max_sec_odd_number = number
+    return max_sec_even_number + max_sec_odd_number
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 求一个列表里的中位数
 
@@ -307,21 +352,6 @@ if __name__ == "__main__":
     
     median(numbers)
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # 给你两个正整数a和b， 输出它们的最大公约数。
@@ -444,30 +474,6 @@ if __name__ == "__main__":
 
 
 
-
-
-"""
-计算所有自恋数的和
-"""
-def sum_of_shuixianhua():
-    
-    sum_of_numbers = 0
-    
-    for number in range(100,1000):
-
-        if number == (number % 10)**3 + (((number // 10)) % 10)**3 + (number // 100)**3:
-            print(number,end = " ")
-
-            sum_of_numbers += number
-    else:
-        print(sum_of_numbers)
-
-"""        
-if __name__ == "__main__":
-    sum_of_shuixianhua()
-"""   
-
-
 """
 给你个小写英文字符串a和一个非负数b(0<=b<26), 将a中的每个小写字符替换成字母表中比它大b的字母。
 这里将字母表的z和a相连，如果超过了z就回到了a。
@@ -489,61 +495,6 @@ if __name__ == "__main__":
     a = "cagy"
     b = 3
     slove_it(a,b)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
