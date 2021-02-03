@@ -1,4 +1,4 @@
-# Chipscoco_python_question_bank
+# Python_question_bank
 ---
 ## 1. 摘要
 我的练习题册子
